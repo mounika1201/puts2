@@ -12,8 +12,8 @@ def index():
     return 'Usage;\n<Operation>?A=<V1>&B=<V2>\n'
 
 
-@app.route('/add')
-def addition():
+@app.route('/sub')
+def subtraction():
     elif operation == 'subtract':
             sum = float(num1) - float(num2)
     
