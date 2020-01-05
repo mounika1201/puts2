@@ -1,0 +1,11 @@
+pip install pipenv
+
+pipenv shell
+
+python --version 
+
+pipenv shell
+
+pipenv install flask
+
+pip install flask 
