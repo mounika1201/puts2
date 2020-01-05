@@ -17,7 +17,7 @@ def result():
     if(operation == 'Subtraction'):
         result = var_1 - var_2
 	
-	else:
+    else:
         result = 'INVALID CHOICE'
     entry = result
     return render_template('result.html', entry=entry)
