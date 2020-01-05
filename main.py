@@ -1,34 +1,31 @@
-from flask import Flask, request
-from fractions import Fraction
+from flask import Flask, render_template, request
 
 app = Flask(__name__)
+app.config.from_object(__name__)
 
 
 @app.route('/')
-def index():
-    if request.method == 'POST':
-        num1 = request.form['num1']
-        num2 = request.form['num2']
-        operation = request.form['operation']
-    return 'Usage;\n<Operation>?A=<V1>&B=<V2>\n'
+def welcome():
+    return render_template('form.html')
 
 
-@app.route('/add')
-def addition():
-    if operation == 'add':
-        sum = float(num1) + float(num2)
-    elif operation == 'subtract':
-        sum = float(num1) - float(num2)
+@app.route('/result', methods=['POST'])
+def result():
+    var_1 = request.form.get("var_1", type=int)
+    var_2 = request.form.get("var_2", type=int)
+    operation = request.form.get("operation")
+    if(operation == 'Addition'):
+        result = var_1 + var_2
+    elif(operation == 'Subtraction'):
+        result = var_1 - var_2
+    elif(operation == 'Multiplication'):
+        result = var_1 * var_2
+    elif(operation == 'Division'):
+        result = var_1 / var_2
+    else:
+        result = 'INVALID CHOICE'
+    entry = result
+    return render_template('result.html', entry=entry)
 
-    elif operation == 'multiply':
-        sum = float(num1) * float(num2)
-
-    elif operation == 'divide':
-        sum = float(num1) / float(num2)
-
-        return '%d \n' % result
-    return '%.2f \n' % result
-
-
-if __name__ == "__main__":
-    app.run()
+if __name__ == '__main__':
+    app.run(debug=True)
