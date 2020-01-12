@@ -1,25 +1,20 @@
-from flask import Flask, render_template, request
+
+from flask import Flask, request
+from fractions import Fraction
+from decimal import Decimal
 
 app = Flask(__name__)
-app.config.from_object(__name__)
-
 
 @app.route('/')
-def welcome():
-    return render_template('form.html')
+def index():
+    return 'Usage;\n<Operation>?A=<Value1>&B=<Value2>\n'
 
+@app.route('/mul')
+def multiplication():
+    value1=request.args.get('A',default = 0, type = int)
+    value2=request.args.get('B',default = 0, type = int)
+    result=value1*value2
+    return '%d \n' % result
 
-@app.route('/result', methods=['POST'])
-def result():
-    var_1 = request.form.get("var_1", type=int)
-    var_2 = request.form.get("var_2", type=int)
-    operation = request.form.get("operation")
-    if(operation == 'Multiplication'):
-        result = var_1 * var_2
-    else:
-        result = 'INVALID CHOICE'
-    entry = result
-    return render_template('result.html', entry=entry)
-
-if __name__ == '__main__':
-    app.run(debug=True)
+if __name__ == "__main__":
+    app.run()
